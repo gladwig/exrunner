@@ -50,13 +50,13 @@ public class ExperimentRun {
 		List<Attribute> attributes = Lists.newArrayList();
 		attributes.addAll(runAttributes);
 		attributes.addAll(m_system.getSystemAttributes());
-		attributes.addAll(m_paramSetProvider.getQueryAttributes());
+		attributes.addAll(m_paramSetProvider.getAttributes());
 		attributes.addAll(m_system.getExecutionAttributes());
 
 		List<Attribute> keyAttributes = Lists.newArrayList();
 		keyAttributes.addAll(runAttributes);
 		keyAttributes.addAll(m_system.getSystemAttributes());
-		keyAttributes.addAll(m_paramSetProvider.getQueryAttributes());
+		keyAttributes.addAll(m_paramSetProvider.getAttributes());
 
 		log.info("attributes: " + attributes);
 		

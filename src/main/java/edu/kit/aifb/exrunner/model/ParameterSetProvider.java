@@ -14,12 +14,12 @@ public abstract class ParameterSetProvider {
 		m_queryAttributes = Lists.newArrayList();
 	}
 	
-	protected void registerQueryAttributes(Attribute... attrs) {
+	protected void registerAttributes(Attribute... attrs) {
 		for (Attribute attr : attrs)
 			m_queryAttributes.add(attr);
 	}
 	
-	public List<Attribute> getQueryAttributes() {
+	public List<Attribute> getAttributes() {
 		return m_queryAttributes;
 	}
 	

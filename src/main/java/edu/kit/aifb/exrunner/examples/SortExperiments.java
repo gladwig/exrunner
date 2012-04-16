@@ -32,7 +32,7 @@ public class SortExperiments {
 	public static class SortParameterSetProvider extends ParameterSetProvider {
 
 		public SortParameterSetProvider() {
-			registerQueryAttributes(SortAttributes.SIZE, SortAttributes.DIST);
+			registerAttributes(SortAttributes.SIZE, SortAttributes.DIST);
 		}
 		
 		@Override
