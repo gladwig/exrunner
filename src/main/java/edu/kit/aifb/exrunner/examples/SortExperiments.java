@@ -36,7 +36,7 @@ public class SortExperiments {
 		}
 		
 		@Override
-		public List<ParameterSet> getParameterSets(String queryProviderParam) {
+		public List<ParameterSet> getParameterSets() {
 			List<ParameterSet> params = Lists.newArrayList();
 			params.add(new SortParameterSet(512, "rand"));
 			params.add(new SortParameterSet(1024, "rand"));
@@ -76,7 +76,7 @@ public class SortExperiments {
 		}
 		
 		@Override
-		public Map<Attribute,Object> open(String systemParam) throws IOException {
+		public Map<Attribute,Object> open() throws IOException {
 			return ImmutableMap.<Attribute,Object>of(SortAttributes.ALGORITHM, "bubble");
 		}
 
@@ -122,7 +122,7 @@ public class SortExperiments {
 		}
 		
 		@Override
-		public Map<Attribute,Object> open(String systemParam) throws IOException {
+		public Map<Attribute,Object> open() throws IOException {
 			return ImmutableMap.<Attribute,Object>of(SortAttributes.ALGORITHM, "java");
 		}
 
@@ -143,10 +143,10 @@ public class SortExperiments {
 		
 	}
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		ExperimentRun run1 = new ExperimentRun(new BubbleSortSystem(), null, new SortParameterSetProvider(), null, 2, new File("sort.db"), null);
+		ExperimentRun run1 = new ExperimentRun(new BubbleSortSystem(), new SortParameterSetProvider(), 2, new File("sort.db"), null);
 		run1.run();
 		
-		run1 = new ExperimentRun(new JavaSortSystem(), null, new SortParameterSetProvider(), null, 2, new File("sort.db"), null);
+		run1 = new ExperimentRun(new JavaSortSystem(), new SortParameterSetProvider(), 2, new File("sort.db"), null);
 		run1.run();
 	}
 	

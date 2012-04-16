@@ -26,20 +26,16 @@ import edu.kit.aifb.exrunner.model.attribute.TimestampAttribute;
 public class ExperimentRun {
 
 	private ExperimentSystem m_system;
-	private String m_systemParam;
 	private ParameterSetProvider m_paramSetProvider;
-	private String m_paramSetProviderParam;
 	private int m_benchRuns;
 	private File m_dbFile;
 	private File m_executePrepareScript;
 	
 	private static final Logger log = LoggerFactory.getLogger(ExperimentRun.class);
 
-	public ExperimentRun(ExperimentSystem system, String systemParam, ParameterSetProvider queryProvider, String queryProviderParam, int benchRuns, File dbFile, File executePrepareScript) {
+	public ExperimentRun(ExperimentSystem system, ParameterSetProvider queryProvider, int benchRuns, File dbFile, File executePrepareScript) {
 		m_system = system;
-		m_systemParam = systemParam;
 		m_paramSetProvider = queryProvider;
-		m_paramSetProviderParam = queryProviderParam;
 		m_benchRuns = benchRuns;
 		m_dbFile = dbFile;
 		m_executePrepareScript = executePrepareScript;
@@ -65,9 +61,9 @@ public class ExperimentRun {
 		log.info("attributes: " + attributes);
 		
 		Date runid = new Date();
-		Map<Attribute,Object> systemValues = m_system.open(m_systemParam);
+		Map<Attribute,Object> systemValues = m_system.open();
 
-		List<ParameterSet> paramSets = m_paramSetProvider.getParameterSets(m_paramSetProviderParam);
+		List<ParameterSet> paramSets = m_paramSetProvider.getParameterSets();
 
 		ResultDatabase db = new ResultDatabase(m_dbFile, m_system.getName(), attributes, keyAttributes);
 		

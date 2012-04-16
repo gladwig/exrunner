@@ -51,7 +51,7 @@ public abstract class ExperimentSystem {
 			m_executionAttributes.add(attr);
 	}
 
-	public abstract Map<Attribute,Object> open(String systemParam) throws IOException;
+	public abstract Map<Attribute,Object> open() throws IOException;
 	public abstract void close() throws IOException;
 	
 	public abstract Map<Attribute,Object> execute(ParameterSet paramSet) throws IOException;

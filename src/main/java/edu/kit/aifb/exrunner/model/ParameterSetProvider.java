@@ -23,5 +23,5 @@ public abstract class ParameterSetProvider {
 		return m_queryAttributes;
 	}
 	
-	public abstract List<ParameterSet> getParameterSets(String queryProviderParam);
+	public abstract List<ParameterSet> getParameterSets();
 }
