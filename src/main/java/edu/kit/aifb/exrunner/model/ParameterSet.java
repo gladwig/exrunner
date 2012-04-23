@@ -21,6 +21,10 @@ public class ParameterSet {
 		return m_attrValues;
 	}
 	
+	public void setValue(Attribute attr, Object value) {
+		m_attrValues.put(attr, value);
+	}
+	
 	public Object getValue(Attribute attr) {
 		return m_attrValues.get(attr);
 	}
