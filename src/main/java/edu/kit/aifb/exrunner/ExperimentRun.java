@@ -3,6 +3,7 @@ package edu.kit.aifb.exrunner;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,19 +31,30 @@ public class ExperimentRun {
 	private int m_benchRuns;
 	private File m_dbFile;
 	private File m_executePrepareScript;
+	private String m_runid;
 	
 	private static final Logger log = LoggerFactory.getLogger(ExperimentRun.class);
 
 	public ExperimentRun(ExperimentSystem system, ParameterSetProvider queryProvider, int benchRuns, File dbFile, File executePrepareScript) {
+		this(system, null, queryProvider, benchRuns, dbFile, executePrepareScript);
+	}
+	
+	public ExperimentRun(ExperimentSystem system, String runid, ParameterSetProvider queryProvider, int benchRuns, File dbFile, File executePrepareScript) {
 		m_system = system;
 		m_paramSetProvider = queryProvider;
 		m_benchRuns = benchRuns;
 		m_dbFile = dbFile;
 		m_executePrepareScript = executePrepareScript;
+		m_runid = runid;
+		
+		if (m_runid == null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss");
+			m_runid = format.format(new Date());
+		}
 	}
 	
 	public void run() throws ClassNotFoundException, SQLException, IOException {
-		Attribute runidAttr = new TimestampAttribute("runid");
+		Attribute runidAttr = new StringAttribute("runid");
 		Attribute nrAttr = new IntAttribute("nr");
 		Attribute sysnameAttr = new StringAttribute("system_name");
 		List<Attribute> runAttributes = Lists.newArrayList(runidAttr, nrAttr, sysnameAttr);
@@ -60,7 +72,6 @@ public class ExperimentRun {
 
 		log.info("attributes: " + attributes);
 		
-		Date runid = new Date();
 		Map<Attribute,Object> systemValues = m_system.open();
 
 		List<ParameterSet> paramSets = m_paramSetProvider.getParameterSets();
@@ -71,7 +82,7 @@ public class ExperimentRun {
 			Collections.shuffle(paramSets);
 			
 			Map<Attribute,Object> runValues = Maps.newHashMap();
-			runValues.put(runidAttr, runid);
+			runValues.put(runidAttr, m_runid);
 			runValues.put(nrAttr, run);
 			runValues.put(sysnameAttr, m_system.getName());
 			
