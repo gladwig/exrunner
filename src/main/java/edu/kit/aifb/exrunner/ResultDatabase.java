@@ -119,7 +119,8 @@ public class ResultDatabase {
 	public void recordResult(Map<Attribute,Object>... maps) throws SQLException {
 		Map<Attribute,Object> values = Maps.newHashMap();
 		for (Map<Attribute,Object> map : maps)
-			values.putAll(map);
+			if (map != null)
+				values.putAll(map);
 		recordResult(values);
 	}
 	
